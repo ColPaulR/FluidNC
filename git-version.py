@@ -45,7 +45,7 @@ else:
             .decode("utf-8")
         )
         if modified:
-            dirty = "-dirty"
+            dirty = "-dirtyPaul"
         else:
             dirty = ""
         rev = " (%s-%s%s)" % (branchname, revision, dirty)

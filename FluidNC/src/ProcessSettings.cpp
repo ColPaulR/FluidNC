@@ -3,6 +3,7 @@
 
 #include "Settings.h"
 
+
 #include "Machine/MachineConfig.h"
 #include "Configuration/RuntimeSetting.h"
 #include "Configuration/AfterParse.h"
@@ -34,6 +35,8 @@
 // WG Readable and writable as guest
 // WU Readable and writable as user and admin
 // WA Readable as user and admin, writable as admin
+
+static Error switchInchMM(const char* value, WebUI::AuthenticationLevel auth_level, Channel& out);
 
 static Error fakeMaxSpindleSpeed(const char* value, WebUI::AuthenticationLevel auth_level, Channel& out);
 
@@ -762,6 +765,15 @@ static Error dump_config(const char* value, WebUI::AuthenticationLevel auth_leve
     return Error::Ok;
 }
 
+static Error switchInchMM(const char* value, WebUI::AuthenticationLevel auth_level, Channel& out) {
+    if (!value) {
+        log_stream(out, "$13=" << (config->_reportInches ? "1" : "0"));
+    } else {
+        config->_reportInches = ((value[0]=='1') ? true : false);
+    }
+
+    return Error::Ok;
+}
 static Error fakeMaxSpindleSpeed(const char* value, WebUI::AuthenticationLevel auth_level, Channel& out) {
     if (!value) {
         log_stream(out, "$30=" << spindle->maxSpeed());
@@ -896,6 +908,7 @@ void make_user_commands() {
 
     new UserCommand("RI", "Report/Interval", setReportInterval, anyState);
 
+    new UserCommand("13", "switchInchMM", switchInchMM, notIdleOrAlarm);
     new UserCommand("30", "FakeMaxSpindleSpeed", fakeMaxSpindleSpeed, notIdleOrAlarm);
     new UserCommand("32", "FakeLaserMode", fakeLaserMode, notIdleOrAlarm);
 
