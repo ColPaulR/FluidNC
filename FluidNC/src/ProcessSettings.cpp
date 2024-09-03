@@ -34,7 +34,7 @@
 // WU Readable and writable as user and admin
 // WA Readable as user and admin, writable as admin
 
-static Error switchInchMM(const char* value, WebUI::AuthenticationLevel auth_level, Channel& out);
+static Error switchInchMM(const char* value, AuthenticationLevel auth_level, Channel& out);
 
 static Error fakeMaxSpindleSpeed(const char* value, AuthenticationLevel auth_level, Channel& out);
 
@@ -715,7 +715,7 @@ static Error report_init_message_cmd(const char* value, AuthenticationLevel auth
     return Error::Ok;
 }
 
-static Error switchInchMM(const char* value, WebUI::AuthenticationLevel auth_level, Channel& out) {
+static Error switchInchMM(const char* value, AuthenticationLevel auth_level, Channel& out) {
     if (!value) {
         log_stream(out, "$13=" << (config->_reportInches ? "1" : "0"));
     } else {
