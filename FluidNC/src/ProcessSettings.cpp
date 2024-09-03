@@ -857,7 +857,7 @@ void make_user_commands() {
 
     new UserCommand("RI", "Report/Interval", setReportInterval, anyState);
 
-    new UserCommand("13", "switchInchMM", switchInchMM, notIdleOrAlarm);
+    new UserCommand("13", "Report/Inches", switchInchMM, notIdleOrAlarm);
     new UserCommand("30", "FakeMaxSpindleSpeed", fakeMaxSpindleSpeed, notIdleOrAlarm);
     new UserCommand("32", "FakeLaserMode", fakeLaserMode, notIdleOrAlarm);
 
