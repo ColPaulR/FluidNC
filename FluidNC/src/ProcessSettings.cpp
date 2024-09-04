@@ -199,7 +199,11 @@ static void show_settings(Channel& out, type_t type) {
     }
     // need this per issue #1036
     fakeMaxSpindleSpeed(NULL, AuthenticationLevel::LEVEL_ADMIN, out);
+
+    // Print Report/Inches
+    switchInchMM(NULL, AuthenticationLevel::LEVEL_ADMIN, out);
 }
+
 static Error report_normal_settings(const char* value, AuthenticationLevel auth_level, Channel& out) {
     show_settings(out, GRBL);  // GRBL non-axis settings
     return Error::Ok;
